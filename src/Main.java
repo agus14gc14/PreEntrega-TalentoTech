@@ -4,27 +4,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    String cadenaOriginal = " té CHAI ";
-
-
-    public void conversion(String cadena) {
-        String cadenaFormateada = cadena.trim().toLowerCase();
-        System.out.println(cadenaFormateada);
-        String[] palabras = cadenaFormateada.split(" ");
-        System.out.println(palabras[0].substring(0, 1).toUpperCase());
-        palabras[0] = palabras[0].substring(0, 1).toUpperCase() + palabras[0].substring(1);
-        palabras[1] = palabras[1].substring(0, 1).toUpperCase() + palabras[1].substring(1);
-        System.out.println(palabras[0] + " " + palabras[1]);
-    }
-    ArrayList <Producto> listaProductos = new ArrayList<>();
-
-    void main(String[] args) {
-        /*System.out.println(cadenaOriginal);
-        conversion(cadenaOriginal);
-        Producto mouse = new Producto("mouse", 1, 1000);
-        Producto teclado = new Producto("TECLADO", 2, 3000);
-        listaProductos.add(mouse);
-        listaProductos.add(teclado);*/
+   public static void main(String[] args) {
+        ArrayList <Producto> listaProductos = new ArrayList<>();
         Scanner input = new Scanner(System.in);
         int opcion = 0;
         while (opcion != 9) {
@@ -90,4 +71,16 @@ public class Main {
         }
     }
 }
+//sin uso actualmente
+    /*String cadenaOriginal = " té CHAI ";
 
+
+    public void conversion(String cadena) {
+        String cadenaFormateada = cadena.trim().toLowerCase();
+        System.out.println(cadenaFormateada);
+        String[] palabras = cadenaFormateada.split(" ");
+        System.out.println(palabras[0].substring(0, 1).toUpperCase());
+        palabras[0] = palabras[0].substring(0, 1).toUpperCase() + palabras[0].substring(1);
+        palabras[1] = palabras[1].substring(0, 1).toUpperCase() + palabras[1].substring(1);
+        System.out.println(palabras[0] + " " + palabras[1]);
+    }*/
