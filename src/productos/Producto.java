@@ -1,19 +1,26 @@
 package productos;
 
+import java.util.ArrayList;
+
 public class Producto {
     private String nombre;
     private int id;
     private double precio;
     private boolean descuento;
 
+    public static ArrayList<Producto> listaProductos = new ArrayList<>();
 
-    public Producto(String nombre, int id, double precio){
-            setNombre(nombre);
-            setId(id);
-            setPrecio(precio);
+    public int idProducto(){
+        this.id=listaProductos.size();
+        this.id++;
+        return this.id;
     }
 
-
+    public Producto(String nombre, double precio){
+            setNombre(nombre);
+            setPrecio(precio);
+            setId(idProducto());
+    }
 
     public String getNombre() {
         return nombre;
