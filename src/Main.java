@@ -27,10 +27,6 @@ public class Main {
     }
 
    public static void main(String[] args) {
-
-       String cadenaSF = "toyoTA CORolla BLANCO";
-       System.out.println(conversion(cadenaSF));
-
         Scanner input = new Scanner(System.in);
         int opcion = 0;
 
