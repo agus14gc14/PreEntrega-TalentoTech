@@ -1,32 +1,11 @@
 import productos.Producto;
-import java.util.ArrayList;
-import java.util.Arrays;
+import operaciones.Operaciones;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void limpiarConsola(){
-        System.out.println("\033[H\033[2J");
-        System.out.flush();
-    }
-
-
-
-    public static String conversion(String cadena) { //formatea cadenas para mostrar las palabras con su primer letra capitalizada
-        String cadenaFormateada = cadena.trim().toLowerCase();
-        String[] palabras = cadenaFormateada.split("\\s+");
-        StringBuilder constructor = new StringBuilder();
-        for (String palabra : palabras) {
-            if (palabra.isEmpty()) {
-                continue;
-            }
-            String palabraCap = palabra.substring(0, 1).toUpperCase() + palabra.substring(1);
-            constructor.append(palabraCap).append(" ");
-        }
-        return constructor.toString().trim();
-    }
-
    public static void main(String[] args) {
+        Operaciones operaciones = new Operaciones(); //Instanciado objeto de clase Operaciones para usar sus metodos
         Scanner input = new Scanner(System.in);
         int opcion = 0;
 
@@ -42,7 +21,7 @@ public class Main {
                     9-Salir
                     """);
             opcion = input.nextInt();
-            limpiarConsola();
+            operaciones.limpiarConsola();
             /*Cuando se requiere nextLine del Scanner "input" en las siguientes lineas luego de obtener
             un valor numerico, un \n residual provoca problemas en el funcionamiento del programa. Se soluciona
             inicializando la variable con ese \n residual y luego modificandola con otra iteracion del Scanner
@@ -52,12 +31,12 @@ public class Main {
                     //Creacion de un producto nuevo
                     input.nextLine(); //Precargado nextLine() con \n que quedo de la iteracion previa
                     System.out.println("Introduce el nombre del producto");
-                    String inNombre = conversion(input.nextLine()); //reasignado inNombre con nextLine() correspondiente
+                    String inNombre = operaciones.conversion(input.nextLine()); //reasignado inNombre con nextLine() correspondiente
                     System.out.println("Introduce el precio del producto");
                     double inPrecio = input.nextDouble();
                     Producto inProducto = new Producto(inNombre, inPrecio);
                     Producto.listaProductos.add(inProducto);
-                    limpiarConsola();
+                    operaciones.limpiarConsola();
                     break;
                 }
 
@@ -69,7 +48,7 @@ public class Main {
                     for (Producto productos : Producto.listaProductos) {
                         System.out.println((String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
                     }
-                    limpiarConsola();
+                    operaciones.limpiarConsola();
                     break;
                 }
 
@@ -77,13 +56,13 @@ public class Main {
                     //Busca coincidencia total o parcial en .getNombre()
                     input.nextLine();// precargado \n residual
                     System.out.println("Introduce el nombre del producto a buscar");
-                    String busqueda = conversion(input.nextLine());
+                    String busqueda = operaciones.conversion(input.nextLine());
                     for (Producto productos : Producto.listaProductos){
                         if (productos.getNombre().contains(busqueda)){
                             System.out.println((String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
                         }
                     }
-                    limpiarConsola();
+                    operaciones.limpiarConsola();
                     break;
                 }
 
@@ -91,7 +70,7 @@ public class Main {
                     //Busca y elimina productos por Id
                     if (Producto.listaProductos.isEmpty()){
                         System.out.println("No hay productos listados aún.");
-                        limpiarConsola();
+                        operaciones.limpiarConsola();
                         break;
                     }
                     System.out.println("Introduce el Id del producto a eliminar");
@@ -99,9 +78,8 @@ public class Main {
                         System.out.println((String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
                     }
                     int delId = input.nextInt();
-                    int indiceEliminar;
                     Producto.listaProductos.removeIf(producto -> producto.getId() == delId); //se usa removeIf evaluando igualdad entre getId() del elemento iterado y delId
-                    limpiarConsola();
+                    operaciones.limpiarConsola();
                     break;
                 }
 
@@ -115,12 +93,11 @@ public class Main {
                         if(productos.getId() == modId){
                             input.nextLine();
                             System.out.println("Introduce un nuevo nombre (OMITÍ PULSANDO ENTER)");
-                            String nuevoNombre = conversion(input.nextLine());
+                            String nuevoNombre = operaciones.conversion(input.nextLine());
                             System.out.println("Introduce un nuevo precio (OMITÍ ASIGNANDO 0 Y PULSANDO ENTER)"); //Solucion encontrada, si no se asigna un valor en variable double o int el scanner ignora los saltos de linea
                             double nuevoPrecio = input.nextDouble();
                             if(nuevoNombre.isEmpty() && nuevoPrecio == 0){
                                 System.out.println("No se han registrado cambios");
-                                continue;
                             } else if (nuevoNombre.isEmpty()){
                                 productos.setPrecio(nuevoPrecio);
                                 System.out.println("Cambios Registrados: \n" + (String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
@@ -135,7 +112,7 @@ public class Main {
                             }
                         }
                     }
-                    limpiarConsola();
+                    operaciones.limpiarConsola();
                     break;
                 }
             }
