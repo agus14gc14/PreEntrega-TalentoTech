@@ -2,6 +2,8 @@ import productos.Producto;
 import operaciones.Operaciones;
 import java.util.Scanner;
 
+import static productos.Producto.listaProductos;
+
 public class Main {
 
    public static void main(String[] args) {
@@ -35,17 +37,24 @@ public class Main {
                     System.out.println("Introduce el precio del producto");
                     double inPrecio = input.nextDouble();
                     Producto inProducto = new Producto(inNombre, inPrecio);
-                    Producto.listaProductos.add(inProducto);
+                    input.nextLine();
+                    System.out.println("Se aplicara descuento al producto? (si-no)");
+                    String rDescuento = input.nextLine();
+                    if (rDescuento.equals("si")){
+                        inProducto.setDescuento(true);
+                        operaciones.aplicarDescuento(inProducto);
+                    }
+                    listaProductos.add(inProducto);
                     operaciones.limpiarConsola();
                     break;
                 }
 
                 case 2: {
                     //Obtener todos los productos listados
-                    if (Producto.listaProductos.isEmpty()){
+                    if (listaProductos.isEmpty()){
                         System.out.println("No hay productos listados aún.");
                     }
-                    for (Producto productos : Producto.listaProductos) {
+                    for (Producto productos : listaProductos) {
                         System.out.println((String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
                     }
                     operaciones.limpiarConsola();
@@ -57,7 +66,7 @@ public class Main {
                     input.nextLine();// precargado \n residual
                     System.out.println("Introduce el nombre del producto a buscar");
                     String busqueda = operaciones.conversion(input.nextLine());
-                    for (Producto productos : Producto.listaProductos){
+                    for (Producto productos : listaProductos){
                         if (productos.getNombre().contains(busqueda)){
                             System.out.println((String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
                         }
@@ -68,28 +77,28 @@ public class Main {
 
                 case 4: {
                     //Busca y elimina productos por Id
-                    if (Producto.listaProductos.isEmpty()){
+                    if (listaProductos.isEmpty()){
                         System.out.println("No hay productos listados aún.");
                         operaciones.limpiarConsola();
                         break;
                     }
                     System.out.println("Introduce el Id del producto a eliminar");
-                    for (Producto productos : Producto.listaProductos) {
+                    for (Producto productos : listaProductos) {
                         System.out.println((String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
                     }
                     int delId = input.nextInt();
-                    Producto.listaProductos.removeIf(producto -> producto.getId() == delId); //se usa removeIf evaluando igualdad entre getId() del elemento iterado y delId
+                    listaProductos.removeIf(producto -> producto.getId() == delId); //se usa removeIf evaluando igualdad entre getId() del elemento iterado y delId
                     operaciones.limpiarConsola();
                     break;
                 }
 
                 case 5:{
                     System.out.println("Selecciona el Id del producto a modificar");
-                    for (Producto productos : Producto.listaProductos) {
+                    for (Producto productos : listaProductos) {
                         System.out.println((String.format("Producto: %s - ID: %s - Precio: %s", productos.getNombre(), productos.getId(), productos.getPrecio())));
                     }
                     int modId = input.nextInt();
-                    for (Producto productos : Producto.listaProductos){
+                    for (Producto productos : listaProductos){
                         if(productos.getId() == modId){
                             input.nextLine();
                             System.out.println("Introduce un nuevo nombre (OMITÍ PULSANDO ENTER)");
@@ -114,6 +123,10 @@ public class Main {
                     }
                     operaciones.limpiarConsola();
                     break;
+                }
+                case 6 : {
+                    System.out.println("Introduce el id del item para agregar al pedido");
+                    input.nextInt();
                 }
             }
         }

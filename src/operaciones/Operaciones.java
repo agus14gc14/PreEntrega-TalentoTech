@@ -1,4 +1,5 @@
 package operaciones;
+import productos.Producto;
 
 public class Operaciones {
 
@@ -19,5 +20,14 @@ public class Operaciones {
             constructor.append(palabraCap).append(" ");
         }
         return constructor.toString().trim();
+    }
+
+    public void aplicarDescuento(Producto producto){
+        double montoDescontar = producto.getPrecio();
+        if(producto.isDescuento()){
+            montoDescontar = (montoDescontar/100) * 15;
+            double precioDescuento = producto.getPrecio() - montoDescontar;
+            producto.setPrecio(precioDescuento);
+        }
     }
 }
