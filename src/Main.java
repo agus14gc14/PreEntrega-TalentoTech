@@ -124,10 +124,6 @@ public class Main {
                     operaciones.limpiarConsola();
                     break;
                 }
-                case 6 : {
-                    System.out.println("Introduce el id del item para agregar al pedido");
-                    input.nextInt();
-                }
             }
         }
     }
